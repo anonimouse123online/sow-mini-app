@@ -9,19 +9,19 @@ export default function PriceListTable() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      try {
-        // Use full backend URL — same as in your Login.jsx
-        const response = await fetch('http://localhost:5000/api/products');
-        if (!response.ok) throw new Error('Failed to load products');
-        const data = await response.json();
-        setProducts(data);
-      } catch (err) {
-        console.error('Fetch error:', err);
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+  try {
+    // Use your live backend URL on Render
+    const response = await fetch('https://mini-app-backend-bdlo.onrender.com/api/products');
+    if (!response.ok) throw new Error('Failed to load products');
+    const data = await response.json();
+    setProducts(data);
+  } catch (err) {
+    console.error('Fetch error:', err);
+    setError(err.message);
+  } finally {
+    setLoading(false);
+  }
+};
 
     fetchProducts();
   }, []);

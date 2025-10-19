@@ -14,34 +14,37 @@ export default function Login({ onLogin }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
+  e.preventDefault();
+  setError('');
+  setLoading(true);
 
-    try {
-      const response = await fetch('http://localhost:5000/api/login', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({ email, password }),
-});
+  try {
+    const response = await fetch('https://mini-app-backend-bdlo.onrender.com/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    });
 
-      const data = await response.json();
-
-      if (response.ok) {
-        console.log('Login successful!');
-        if (onLogin) onLogin(data); // Pass user data if needed
-      } else {
-        setError(data.message || 'Ogiltig e-post eller lösenord. Försök igen.');
-      }
-    } catch (err) {
-      console.error('Login error:', err);
-      setError('Något gick fel. Försök igen senare.');
-    } finally {
-      setLoading(false);
+    // Handle non-OK responses (404, 500, etc.)
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      const message = errorData.message || 'Ogiltig e-post eller lösenord. Försök igen.';
+      setError(message);
+      return;
     }
-  };
+
+    const data = await response.json();
+    console.log('Login successful!', data);
+    if (onLogin) onLogin(data.user);
+  } catch (err) {
+    console.error('Network error:', err);
+    setError('Något gick fel. Försök igen senare.');
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="login-page">

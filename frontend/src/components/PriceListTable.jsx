@@ -1,47 +1,52 @@
-import React from 'react';
+// PriceListTable.jsx
+import React, { useState, useEffect } from 'react';
 import '../styles/PriceListTable.css';
 
-const priceListData = [
-  {
-    articleNo: '1234567890',
-    product: 'This is a test product with fifty characters this!',
-    inPrice: '900500',
-    price: '1500800',
-    unit: 'km/h',
-    description: 'This is the description with fifty characters this…'
-  }
-];
-
 export default function PriceListTable() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        // Use full backend URL — same as in your Login.jsx
+        const response = await fetch('http://localhost:5000/api/products');
+        if (!response.ok) throw new Error('Failed to load products');
+        const data = await response.json();
+        setProducts(data);
+      } catch (err) {
+        console.error('Fetch error:', err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (loading) return <div className="price-list-container">Loading price list...</div>;
+  if (error) return <div className="price-list-container">Error: {error}</div>;
+
   return (
     <div className="price-list-container">
-
       <div className="search-section">
         <div className="search-group">
-          <input 
-            type="text" 
-            placeholder="Search Article No." 
-            className="search-input"
-          />
+          <input type="text" placeholder="Search Article No." className="search-input" />
           <button className="search-btn">🔍</button>
         </div>
         <div className="search-group">
-          <input 
-            type="text" 
-            placeholder="Search Product ..." 
-            className="search-input"
-          />
+          <input type="text" placeholder="Search Product ..." className="search-input" />
           <button className="search-btn">🔍</button>
         </div>
       </div>
-
 
       <div className="action-buttons">
         <button className="btn">New Product</button>
         <button className="btn">Print List</button>
         <button className="btn">Advanced mode</button>
       </div>
-
 
       <div className="table-wrapper">
         <table className="price-table">
@@ -56,8 +61,8 @@ export default function PriceListTable() {
             </tr>
           </thead>
           <tbody>
-            {priceListData.map((item, index) => (
-              <tr key={index}>
+            {products.map((item) => (
+              <tr key={item.id}>
                 <td>{item.articleNo}</td>
                 <td>{item.product}</td>
                 <td>{item.inPrice}</td>

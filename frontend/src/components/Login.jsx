@@ -1,6 +1,6 @@
-//   Email: admin123@gmail.com
-//   Password: password123
-// this is my commecnt about the file not ai generated
+// Email: admin123@gmail.com
+// Password: password123
+// this is my comment about the file not ai generated
 
 import { useState } from 'react';
 import '../styles/Login.css';
@@ -10,19 +10,36 @@ export default function Login({ onLogin }) {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
-    // 🔑 Static credentials check
-    if (email === 'admin123@gmail.com' && password === 'password123') {
-      console.log(' Login successful!');
-      // TODO: Later — onLogin() to connect in backend
-      if (onLogin) onLogin();
-    } else {
-      setError('Ogiltig e-post eller lösenord. Försök igen.');
+    try {
+      const response = await fetch('http://localhost:5000/api/login', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ email, password }),
+});
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('Login successful!');
+        if (onLogin) onLogin(data); // Pass user data if needed
+      } else {
+        setError(data.message || 'Ogiltig e-post eller lösenord. Försök igen.');
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      setError('Något gick fel. Försök igen senare.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -63,9 +80,9 @@ export default function Login({ onLogin }) {
           <span>Svenska</span>
           <img
             src="https://storage.123fakturere.no/public/flags/SE.png"
-              alt="Svenska"
-              className="flag"
-            />
+            alt="Svenska"
+            className="flag"
+          />
         </div>
       </header>
 
@@ -83,6 +100,7 @@ export default function Login({ onLogin }) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              disabled={loading}
             />
           </div>
 
@@ -95,12 +113,14 @@ export default function Login({ onLogin }) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                disabled={loading}
               />
               <button
                 type="button"
                 className="toggle-password"
                 onClick={() => setShowPassword(!showPassword)}
                 aria-label={showPassword ? 'Dölj lösenord' : 'Visa lösenord'}
+                disabled={loading}
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -110,8 +130,8 @@ export default function Login({ onLogin }) {
             </div>
           </div>
 
-          <button type="submit" className="login-button">
-            Logga in
+          <button type="submit" className="login-button" disabled={loading}>
+            {loading ? 'Loggar in...' : 'Logga in'}
           </button>
         </form>
 

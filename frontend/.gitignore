@@ -7,18 +7,59 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Dependency directories
+node_modules/
+jspm_packages/
+bower_components/
 
-# Editor directories and files
+# Build outputs
+/dist
+/dist-ssr
+/.vite
+/build
+/out
+.next
+.nuxt
+.cache/
+
+# Environment variables (CRITICAL: never commit secrets!)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.DS_Store
+
+# Editor and IDE
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Debugging and temp files
+*.pid
+*.seed
+*.pid.lock
+pids
+*.dump
+*.trace
+
+# PostgreSQL (if running locally via Docker or data dir)
+/pgdata/
+/postgres-data/
+
+# Optional: Vercel, Netlify, etc.
+.vercel
+netlify/

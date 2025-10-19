@@ -1,7 +1,6 @@
 import React from 'react';
 import '../styles/PriceListTable.css';
 
-// Static data - I WILL REPLACE WITH API CALL LATER
 const priceListData = [
   {
     articleNo: '1234567890',
@@ -13,16 +12,16 @@ const priceListData = [
   }
 ];
 
-const PriceListTable = () => {
+export default function PriceListTable() {
   return (
     <div className="price-list-container">
+
       <div className="search-section">
         <div className="search-group">
           <input 
             type="text" 
             placeholder="Search Article No." 
             className="search-input"
-            // TODO: Connect to backend search API
           />
           <button className="search-btn">🔍</button>
         </div>
@@ -31,7 +30,6 @@ const PriceListTable = () => {
             type="text" 
             placeholder="Search Product ..." 
             className="search-input"
-            // TODO: Connect to backend search API
           />
           <button className="search-btn">🔍</button>
         </div>
@@ -39,10 +37,11 @@ const PriceListTable = () => {
 
 
       <div className="action-buttons">
-        <button className="btn">New Product </button>
-        <button className="btn">Print List </button>
-        <button className="btn">Advanced mode </button>
+        <button className="btn">New Product</button>
+        <button className="btn">Print List</button>
+        <button className="btn">Advanced mode</button>
       </div>
+
 
       <div className="table-wrapper">
         <table className="price-table">
@@ -54,7 +53,6 @@ const PriceListTable = () => {
               <th>Price</th>
               <th>Unit</th>
               <th>Description</th>
-              <th></th> 
             </tr>
           </thead>
           <tbody>
@@ -66,7 +64,6 @@ const PriceListTable = () => {
                 <td>{item.price}</td>
                 <td>{item.unit}</td>
                 <td>{item.description}</td>
-                <td className="ellipsis-cell">⋯</td>
               </tr>
             ))}
           </tbody>
@@ -74,6 +71,4 @@ const PriceListTable = () => {
       </div>
     </div>
   );
-};
-
-export default PriceListTable;
+}

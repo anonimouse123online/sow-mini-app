@@ -14,8 +14,7 @@ body {
   position: relative;
   min-height: 100vh;
   min-height: 100dvh;
-  background-color: #7ca6ff; 
-  padding-bottom: 10rem; 
+
 }
 
 .login-page {

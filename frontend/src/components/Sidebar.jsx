@@ -2,9 +2,6 @@ import React from 'react';
 import '../styles/Sidebar.css';
 
 const menuItems = [
-  { icon: '📄', label: 'Invoices' },
-  { icon: '👥', label: 'Customers' },
-  { icon: '🏢', label: 'My Business' },
   { icon: '📖', label: 'Invoice Journal' },
   { icon: '💰', label: 'Price List', active: true }, 
   { icon: '📦', label: 'Multiple Invoicing' },
@@ -16,10 +13,10 @@ const menuItems = [
   { icon: '🔚', label: 'Log out' },
 ];
 
-const Sidebar = () => {
+export default function Sidebar() {
   return (
     <aside className="sow-sidebar">
-      <div className="menu-title">➤ Menu</div>
+      <div className="menu-title">My Business</div>
       <nav>
         {menuItems.map((item, index) => (
           <div 
@@ -34,6 +31,4 @@ const Sidebar = () => {
       </nav>
     </aside>
   );
-};
-
-export default Sidebar;
+}

@@ -1,9 +1,10 @@
+// src/App.jsx
 import React, { useState } from 'react';
 import Login from './components/Login';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import PriceListTable from './components/PriceListTable';
-
+import './App.css';
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

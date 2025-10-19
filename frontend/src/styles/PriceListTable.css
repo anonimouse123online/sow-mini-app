@@ -1,6 +1,11 @@
+/* src/styles/PriceListTable.css */
+
 .price-list-container {
   padding: 1.5rem;
-  flex: 1;
+  background-color: white;
+  height: 100%; /* Fill available space */
+  display: flex;
+  flex-direction: column;
 }
 
 .search-section {
@@ -17,17 +22,19 @@
 .search-input {
   flex: 1;
   padding: 0.6rem;
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
   border-radius: 4px 0 0 4px;
+  font-size: 0.9rem;
 }
 
 .search-btn {
-  background: #e0e0e0;
-  border: 1px solid #ccc;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
   border-left: none;
   padding: 0 1rem;
   border-radius: 0 4px 4px 0;
   cursor: pointer;
+  font-size: 0.9rem;
 }
 
 .action-buttons {
@@ -42,16 +49,22 @@
   border: 1px solid #ddd;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 0.9rem;
 }
 
 .btn:hover {
   background: #e9e9e9;
 }
 
+/* Make ONLY the table area scrollable */
 .table-wrapper {
   overflow-x: auto;
-  border: 1px solid #e0e0e0;
+  overflow-y: auto; /* Enable vertical scroll if needed */
+  border: 1px solid #ddd;
   border-radius: 4px;
+  background: white;
+  flex: 1; /* Take remaining space */
+  min-height: 0; /* Critical for flex child to scroll */
 }
 
 .price-table {
@@ -65,16 +78,19 @@
   padding: 0.8rem;
   text-align: left;
   border-bottom: 1px solid #eee;
+  white-space: nowrap; /* Prevent text wrapping */
 }
 
 .price-table th {
   background-color: #f8f9fa;
   font-weight: 600;
   color: #333;
+  font-size: 0.95rem;
+  position: sticky;
+  top: 0; /* Optional: sticky header */
+  z-index: 2;
 }
 
-.ellipsis-cell {
-  text-align: center;
-  cursor: pointer;
-  color: #666;
+.price-table tr:last-child td {
+  border-bottom: none;
 }

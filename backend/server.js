@@ -10,19 +10,19 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Configure PostgreSQL connection
+
 let pool;
 
 if (process.env.DATABASE_URL) {
-  // Use Render's DATABASE_URL in production
+
   pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: {
-      rejectUnauthorized: false // Required for Render's free PostgreSQL
+      rejectUnauthorized: false 
     }
   });
 } else {
-  // Fallback to local development config
+
   pool = new Pool({
     user: 'postgres',
     host: 'localhost',
@@ -32,7 +32,7 @@ if (process.env.DATABASE_URL) {
   });
 }
 
-// Login route
+
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -61,7 +61,7 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-// GET /api/products – fetch all products
+
 app.get('/api/products', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM products ORDER BY id');
@@ -81,7 +81,7 @@ app.get('/api/products', async (req, res) => {
   }
 });
 
-// Health check
+
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Backend is running!' });
 });

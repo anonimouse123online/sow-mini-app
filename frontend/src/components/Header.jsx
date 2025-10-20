@@ -1,3 +1,4 @@
+// Header.jsx
 import React from 'react';
 import '../styles/Header.css';
 
@@ -5,6 +6,7 @@ export default function Header() {
   return (
     <header className="sow-header">
       <div className="user-info">
+        {/* Only visible on desktop */}
         <span className="user-name">John Andre</span>
         <span className="company-name">Storfjord AS</span>
       </div>

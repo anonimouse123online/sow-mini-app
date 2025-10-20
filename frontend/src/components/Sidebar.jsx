@@ -1,4 +1,5 @@
-import React from 'react';
+// Sidebar.jsx
+import React, { useState } from 'react';
 import '../styles/Sidebar.css';
 
 const menuItems = [
@@ -14,21 +15,49 @@ const menuItems = [
 ];
 
 export default function Sidebar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <aside className="sow-sidebar">
-      <div className="menu-title">My Business</div>
-      <nav>
-        {menuItems.map((item, index) => (
-          <div 
-            key={index} 
-            className={`menu-item ${item.active ? 'active' : ''}`}
-          >
-            <span className="menu-icon">{item.icon}</span>
-            <span className="menu-label">{item.label}</span>
-            {item.active && <span className="active-indicator"></span>}
-          </div>
-        ))}
-      </nav>
-    </aside>
+    <>
+      {/* Floating Hamburger Button (top-left) */}
+      <button
+        className="floating-hamburger"
+        onClick={toggleMenu}
+        aria-label="Toggle navigation menu"
+        aria-expanded={isMenuOpen}
+      >
+        ☰
+      </button>
+
+      {/* Sidebar - slides in from left */}
+      <aside className={`sow-sidebar ${isMenuOpen ? 'open' : ''}`}>
+        <div className="menu-title">My Business</div>
+        <nav>
+          {menuItems.map((item, index) => (
+            <div 
+              key={index} 
+              className={`menu-item ${item.active ? 'active' : ''}`}
+            >
+              <span className="menu-icon">{item.icon}</span>
+              <span className="menu-label">{item.label}</span>
+              {item.active && <span className="active-indicator"></span>}
+            </div>
+          ))}
+        </nav>
+      </aside>
+
+      {/* Overlay to close sidebar when clicked outside */}
+      {isMenuOpen && (
+        <div 
+          className="sidebar-overlay" 
+          onClick={toggleMenu}
+          aria-hidden="true"
+        ></div>
+      )}
+    </>
   );
 }

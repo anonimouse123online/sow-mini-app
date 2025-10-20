@@ -1,16 +1,22 @@
+/* Header.css */
+
 .sow-header {
-  background-color: #0d47a1; /* Blue header */
+  background-color: #0d47a1;
   color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.8rem 1.5rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .user-info {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 }
 
 .user-name {
@@ -27,7 +33,19 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.15);
   padding: 0.4rem 0.8rem;
   border-radius: 4px;
+}
+
+/* === Hide user name on tablet and mobile === */
+@media (max-width: 768px) {
+  .user-name {
+    display: none;
+  }
+
+  /* Optional: adjust company name alignment when name is hidden */
+  .user-info {
+    align-items: flex-start;
+  }
 }

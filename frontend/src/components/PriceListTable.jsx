@@ -10,7 +10,6 @@ export default function PriceListTable() {
   useEffect(() => {
     const fetchProducts = async () => {
   try {
-    // Use your live backend URL on Render
     const response = await fetch('https://mini-app-backend-bdlo.onrender.com/api/products');
     if (!response.ok) throw new Error('Failed to load products');
     const data = await response.json();

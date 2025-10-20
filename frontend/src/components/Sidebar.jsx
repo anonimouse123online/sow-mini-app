@@ -1,4 +1,3 @@
-// Sidebar.jsx
 import React, { useState } from 'react';
 import '../styles/Sidebar.css';
 
@@ -23,7 +22,6 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Floating Hamburger Button (top-left) */}
       <button
         className="floating-hamburger"
         onClick={toggleMenu}
@@ -33,7 +31,7 @@ export default function Sidebar() {
         ☰
       </button>
 
-      {/* Sidebar - slides in from left */}
+
       <aside className={`sow-sidebar ${isMenuOpen ? 'open' : ''}`}>
         <div className="menu-title">My Business</div>
         <nav>
@@ -50,7 +48,6 @@ export default function Sidebar() {
         </nav>
       </aside>
 
-      {/* Overlay to close sidebar when clicked outside */}
       {isMenuOpen && (
         <div 
           className="sidebar-overlay" 

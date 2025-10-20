@@ -1,15 +1,13 @@
-/* src/App.css */
-
 .app {
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Full viewport height */
+  height: 100vh;
 }
 
 .main-layout {
   display: flex;
   flex: 1;
-  overflow: hidden; /* Prevents double scrollbars */
+  overflow: hidden; 
 }
 
 .sidebar {
@@ -17,11 +15,10 @@
   background: #f8f9fa;
   border-right: 1px solid #e0e0e0;
   overflow-y: auto;
-  /* Height handled by flex */
 }
 
 .main-content {
   flex: 1;
-  overflow: hidden; /* Let PriceListTable handle its own scroll */
+  overflow: hidden;
   background-color: white;
 }

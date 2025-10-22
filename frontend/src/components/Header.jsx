@@ -10,7 +10,11 @@ export default function Header() {
       </div>
       <div className="language-selector">
         <span>Norsk Bokmål</span>
-        <span className="flag">🇳🇴</span>
+        <img
+          src="https://storage.123fakturere.no/public/flags/NO.png"
+          alt="Norsk Bokmål"
+          className="flag"
+        />
       </div>
     </header>
   );

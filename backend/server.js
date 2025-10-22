@@ -182,6 +182,32 @@ app.get('/api/translations/:lang', async (req, res) => {
     res.status(500).json({ error: 'Failed to load translations' });
   }
 });
+// ====== ADD THIS BLOCK ======
+app.get('/api/terms', async (req, res) => {
+  const { lang = 'sv' } = req.query;
+
+  if (!['sv', 'en'].includes(lang)) {
+    return res.status(400).json({ error: 'Invalid language. Use "sv" or "en".' });
+  }
+
+  try {
+    const result = await pool.query(
+      'SELECT title, content FROM terms_content WHERE lang_code = $1',
+      [lang]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Terms not found for this language.' });
+    }
+
+    const { title, content } = result.rows[0];
+    res.json({ title, content });
+  } catch (err) {
+    console.error('Error fetching terms:', err);
+    res.status(500).json({ error: 'Failed to load terms.' });
+  }
+});
+// ====== END NEW BLOCK ======
 
 
 app.get('/api/health', (req, res) => {

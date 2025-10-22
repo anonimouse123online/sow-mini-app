@@ -5,13 +5,13 @@ export default function PriceListTable() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [savingId, setSavingId] = useState(null); // for loading indicator per row
+  const [savingId, setSavingId] = useState(null); 
 
-  // Fetch products
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // ⚠️ Fixed: removed extra spaces in URL
+
         const response = await fetch('https://mini-app-backend-bdlo.onrender.com/api/products');
         if (!response.ok) throw new Error('Failed to load products');
         const data = await response.json();
@@ -27,13 +27,13 @@ export default function PriceListTable() {
     fetchProducts();
   }, []);
 
-  // Handle field update
+
   const handleFieldChange = async (id, field, value) => {
-    setSavingId(id); // show saving state
+    setSavingId(id); 
 
     try {
       const response = await fetch(`https://mini-app-backend-bdlo.onrender.com/api/products/${id}`, {
-        method: 'PATCH', // or 'PUT' depending on your backend
+        method: 'PATCH', 
         headers: {
           'Content-Type': 'application/json',
         },
@@ -42,7 +42,7 @@ export default function PriceListTable() {
 
       if (!response.ok) throw new Error('Failed to save');
 
-      // Optimistically update UI
+
       setProducts((prev) =>
         prev.map((product) =>
           product.id === id ? { ...product, [field]: value } : product
@@ -134,7 +134,7 @@ export default function PriceListTable() {
   );
 }
 
-// Reusable editable cell component
+
 function EditableCell({ value, onSave, isSaving, type = 'text' }) {
   const [editing, setEditing] = useState(false);
   const [tempValue, setTempValue] = useState(value);

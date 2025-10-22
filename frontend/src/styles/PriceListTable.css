@@ -111,7 +111,7 @@
   color: #007bff;
 }
 
-/* Optional: highlight editable cells on hover */
+
 .price-table td {
   transition: background-color 0.2s;
 }

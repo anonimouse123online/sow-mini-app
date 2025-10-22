@@ -27,7 +27,7 @@ if (process.env.DATABASE_URL) {
   });
 }
 
-// === AUTH ===
+
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -56,9 +56,7 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-// === PRODUCTS ===
 
-// GET all products
 app.get('/api/products', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM products ORDER BY id');
@@ -66,7 +64,7 @@ app.get('/api/products', async (req, res) => {
       id: row.id,
       articleNo: row.article_no,
       product: row.product,
-      inPrice: Math.round(row.in_price * 100).toString(), // e.g., "2999" for 29.99
+      inPrice: Math.round(row.in_price * 100).toString(), 
       price: Math.round(row.price * 100).toString(),
       unit: row.unit,
       description: row.description
@@ -78,18 +76,18 @@ app.get('/api/products', async (req, res) => {
   }
 });
 
-// PATCH one product by ID
+
 app.patch('/api/products/:id', async (req, res) => {
   const { id } = req.params;
   const updates = req.body;
 
-  // Validate ID
+
   const productId = parseInt(id, 10);
   if (isNaN(productId)) {
     return res.status(400).json({ message: 'Invalid product ID' });
   }
 
-  // Field mapping: frontend (camelCase) → DB (snake_case)
+
   const allowedFields = ['articleNo', 'product', 'inPrice', 'price', 'unit', 'description'];
   const dbFieldMap = {
     articleNo: 'article_no',
@@ -112,7 +110,7 @@ app.patch('/api/products/:id', async (req, res) => {
     return res.status(400).json({ message: 'No valid fields to update' });
   }
 
-  // Handle price fields: convert from string cents (e.g., "2999") → decimal (29.99)
+
   if ('in_price' in validUpdates) {
     const num = parseFloat(validUpdates.in_price);
     if (isNaN(num)) {
@@ -128,7 +126,7 @@ app.patch('/api/products/:id', async (req, res) => {
     validUpdates.price = num / 100;
   }
 
-  // Build dynamic UPDATE query
+ 
   const fields = Object.keys(validUpdates);
   const values = fields.map(field => validUpdates[field]);
   const setClause = fields.map((field, i) => `"${field}" = $${i + 2}`).join(', ');
@@ -163,7 +161,7 @@ app.patch('/api/products/:id', async (req, res) => {
   }
 });
 
-// === TRANSLATIONS ===
+
 app.get('/api/translations/:lang', async (req, res) => {
   const { lang } = req.params;
   if (!['sv', 'en'].includes(lang)) {
@@ -185,12 +183,12 @@ app.get('/api/translations/:lang', async (req, res) => {
   }
 });
 
-// === HEALTH CHECK ===
+
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Backend is running!' });
 });
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`✅ Server running on http://localhost:${PORT}`);
+  console.log(` Server running on http://localhost:${PORT}`);
 });

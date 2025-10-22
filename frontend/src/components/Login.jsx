@@ -13,11 +13,11 @@ export default function Login({ onLogin }) {
   const [loading, setLoading] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState('sv'); // default
+  const [currentLanguage, setCurrentLanguage] = useState('sv'); 
   const [translations, setTranslations] = useState({});
   const [isLoadingTranslations, setIsLoadingTranslations] = useState(true);
 
-  // Define fallback translations (hardcoded safety net)
+
   const fallbackTranslations = {
     sv: {
       login_title: 'Logga in',
@@ -61,7 +61,7 @@ export default function Login({ onLogin }) {
     }
   };
 
-  // Fetch translations when language changes
+
   useEffect(() => {
     setIsLoadingTranslations(true);
     const fetchTranslations = async () => {
@@ -72,7 +72,7 @@ export default function Login({ onLogin }) {
         setTranslations(data);
       } catch (err) {
         console.error('Translation fetch error:', err);
-        // Use fallback translations
+
         setTranslations(fallbackTranslations[currentLanguage]);
       } finally {
         setIsLoadingTranslations(false);
@@ -82,7 +82,6 @@ export default function Login({ onLogin }) {
     fetchTranslations();
   }, [currentLanguage]);
 
-  // Helper: returns translation or fallback
   const t = (key) => {
     if (isLoadingTranslations) {
       return fallbackTranslations[currentLanguage][key] || key;
@@ -196,7 +195,6 @@ export default function Login({ onLogin }) {
           </div>
         </nav>
 
-        {/* Mobile version */}
         <div className="language-toggle-mobile" onClick={toggleLanguageDropdown}>
           <span>
             {currentLanguage === 'sv' ? 'Svenska' : 'English'}

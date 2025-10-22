@@ -15,7 +15,7 @@ const menuItems = [
 
 const DESKTOP_BREAKPOINT = 1200;
 
-// Only use viewport width — standard for responsive UI
+
 function isDesktopViewport() {
   return window.innerWidth >= DESKTOP_BREAKPOINT;
 }
@@ -29,10 +29,9 @@ export default function Sidebar() {
       const nowIsDesktop = isDesktopViewport();
       setIsDesktop(nowIsDesktop);
       if (nowIsDesktop) {
-        setIsMenuOpen(true); // auto-open sidebar on desktop
+        setIsMenuOpen(true); 
       } else {
-        // Optional: close menu when switching to mobile
-        // setIsMenuOpen(false);
+        
       }
     };
 
@@ -45,7 +44,7 @@ export default function Sidebar() {
     };
   }, []);
 
-  // Ensure sidebar is open on desktop (covers initial load and resize)
+
   useEffect(() => {
     if (isDesktop) {
       setIsMenuOpen(true);
@@ -57,7 +56,7 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Hamburger only on non-desktop (tablet/phone in any orientation) */}
+
       {!isDesktop && (
         <button
           className="floating-hamburger"
@@ -85,7 +84,7 @@ export default function Sidebar() {
         </nav>
       </aside>
 
-      {/* Overlay for mobile menu */}
+
       {!isDesktop && isMenuOpen && (
         <div 
           className="sidebar-overlay" 
